@@ -69,7 +69,8 @@ impl<'a> OutBitsBuffer<'a> {
 
     fn writeout(&mut self)
     {
-        self.output.write(&self.buffer[0..self.byteposition]).unwrap();
+        let _ = self.output.write(&self.buffer[0..self.byteposition]);
+        self.buffer.fill(0);
         self.byteposition = 0;
     }
 
@@ -227,7 +228,7 @@ impl<'a> OutBytesBuffer<'a> {
 
     fn writeout(&mut self)
     {
-        self.output.write(&self.buffer[0..self.position]).unwrap();
+        let _ = self.output.write(&self.buffer[0..self.position]);
         self.position = 0;
     }
 
@@ -251,6 +252,7 @@ impl<'a> OutBytesBuffer<'a> {
         } else {
             // Not enough space for bytes: copy the prefix
             self.buffer[self.position..].copy_from_slice(&bytes[..space]);
+            self.position += space;
             self.writeout();
             // Try again with the suffix
             self.write(&bytes[space..]);

@@ -16,7 +16,7 @@ pub fn parse_args() -> (Box<dyn std::io::Read>, Box<dyn std::io::Write>)
         };
     let output: Box<dyn std::io::Write> =
         if let Some(filename) = argv.get(2) {
-            Box::new(std::fs::File::open(filename).unwrap())
+            Box::new(std::fs::File::create(filename).unwrap())
         } else {
             Box::new(std::io::stdout())
         };
