@@ -6,7 +6,7 @@ fn main() {
 
     let mut ib = buffers::InBitsBuffer::from(&mut input);
     let mut ob = buffers::OutBytesBuffer::from(&mut output);
-    let mut dict = dict::Dictionary::new_prefilled();
+    let mut dict = dict::DecompressionDictionary::new_prefilled();
     let mut work: Vec<u8> = Vec::new();
 
     while let Some(value) = ib.read() {
